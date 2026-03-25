@@ -142,6 +142,26 @@
             }
         }
 
+        /* Custom Style kwa ajili ya Chatbot Icon */
+        #chatbase-bubble-button {
+            background: rgba(45, 90, 39, 0.4) !important;
+            /* Kijani ya kioo */
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+            bottom: 25px !important;
+            right: 25px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        #chatbase-bubble-button:hover {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(74, 222, 128, 0.6) !important;
+            /* Inang'aa zaidi ukigusa */
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.4) !important;
+        }
+
         .logout-link {
             display: block;
             text-align: center;
@@ -312,6 +332,31 @@
             };
         }
     </script>
+    <script>
+        (function () {
+            if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+                window.chatbase = (...arguments) => {
+                    if (!window.chatbase.q) { window.chatbase.q = [] }
+                    window.chatbase.q.push(arguments)
+                };
+                window.chatbase = new Proxy(window.chatbase, {
+                    get(target, prop) {
+                        if (prop === "q") { return target.q }
+                        return (...args) => target(prop, ...args)
+                    }
+                })
+            }
+            const onLoad = function () {
+                const script = document.createElement("script");
+                script.src = "https://www.chatbase.co/embed.min.js";
+                script.id = "QXDYf6ffjtiFCs0Y9KLH4";
+                script.domain = "www.chatbase.co";
+                document.body.appendChild(script)
+            };
+            if (document.readyState === "complete") { onLoad() }
+            else { window.addEventListener("load", onLoad) }
+        })();
+    </script>
 </body>
 
-</html>s
+</html>
