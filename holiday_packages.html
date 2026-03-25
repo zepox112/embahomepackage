@@ -278,12 +278,10 @@
             streamSelect.innerHTML = `<option value="">-- Chagua ${cls.includes('5') || cls.includes('6') ? 'Mchepuo (Combination)' : 'Mkondo (Stream)'} --</option>`;
 
             if (cls.startsWith('f') && parseInt(cls[1]) <= 4) {
-                // O-Level Streams
                 ['A', 'B', 'C', 'D', 'E', 'F'].forEach(s => {
                     streamSelect.innerHTML += `<option value="${s}">${s}</option>`;
                 });
             } else {
-                // A-Level Combinations
                 ['HGL', 'HGK', 'HGE', 'EGM', 'PCB', 'PCM', 'PGM', 'CBG', 'CBA', 'HKL'].forEach(c => {
                     streamSelect.innerHTML += `<option value="${c}">${c}</option>`;
                 });
@@ -331,7 +329,7 @@
                             <i class="fas fa-cloud-download-alt"></i> Pakua
                         </a>
                         <button class="btn btn-wa ${!mwalimuYupo ? 'btn-disabled' : ''}" 
-                                onclick="${mwalimuYupo ? `tumaWhatsApp('${sub}', '${nambaSimu}', '${cls}', '${strm}')` : ''}">
+                                onclick="tumaWhatsApp('${sub}', '${nambaSimu}', '${cls}', '${strm}')">
                             <i class="fab fa-whatsapp"></i> Tuma
                         </button>
                     </div>
@@ -341,11 +339,25 @@
 
         function tumaWhatsApp(sub, phone, cls, strm) {
             const name = document.getElementById('stuName').value;
+            if (!name || name.trim() === "") {
+                alert("Tafadhali jaza jina lako kwanza!");
+                return;
+            }
+            
             const label = cls.includes('5') || cls.includes('6') ? 'Mchepuo' : 'Mkondo';
             const kidato = cls.replace('f', 'Form ');
 
-            const msg = `*KAZI YA LIKIZO - EMBARWAY*%0A--------------------------%0A*Mwanafunzi:* ${name}%0A*Darasa:* ${kidato}%0A*${label}:* ${strm}%0A*Somo:* ${sub}%0A--------------------------%0AMwalimu, nimeambatanisha picha za kazi yangu hapa chini:`;
-            window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+            const msg = `*KAZI YA LIKIZO - EMBARWAY*%0A--------------------------%0A*Mwanafunzi:* ${encodeURIComponent(name)}%0A*Darasa:* ${encodeURIComponent(kidato)}%0A*${encodeURIComponent(label)}:* ${encodeURIComponent(strm)}%0A*Somo:* ${encodeURIComponent(sub)}%0A--------------------------%0AMwalimu, nimeambatanisha picha za kazi yangu hapa chini:`;
+            
+            // Inafungua WhatsApp moja kwa moja bila kupitia browser prompt kwanza
+            window.location.href = `whatsapp://send?phone=${phone}&text=${msg}`;
+            
+            // Backup ikiwa protocol ya whatsapp:// haitafanya kazi kwenye baadhi ya browsers
+            setTimeout(() => {
+                if (document.hasFocus()) {
+                    window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+                }
+            }, 500);
         }
     </script>
 </body>
