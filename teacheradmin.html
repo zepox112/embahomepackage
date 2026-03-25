@@ -275,12 +275,16 @@
             reader.readAsDataURL(file);
             reader.onload = async () => {
                 const base64Data = reader.result.split(',')[1];
+
+                // Hapa tunakata sifuri ya mwanzoni kama ipo kabla ya kutuma
+                const formattedPhone = phone.replace(/^0+/, '');
+
                 const payload = {
                     filename: file.name,
                     mimeType: file.type,
                     base64: base64Data,
                     teacher: name,
-                    phone: phone,
+                    phone: formattedPhone,
                     subject: sub,
                     level: level
                 };
@@ -310,4 +314,4 @@
     </script>
 </body>
 
-</html>
+</html>s
