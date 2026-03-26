@@ -142,10 +142,8 @@
             }
         }
 
-        /* Custom Style kwa ajili ya Chatbot Icon */
         #chatbase-bubble-button {
             background: rgba(45, 90, 39, 0.4) !important;
-            /* Kijani ya kioo */
             backdrop-filter: blur(10px) !important;
             -webkit-backdrop-filter: blur(10px) !important;
             border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -158,7 +156,6 @@
         #chatbase-bubble-button:hover {
             transform: scale(1.1) rotate(5deg);
             background: rgba(74, 222, 128, 0.6) !important;
-            /* Inang'aa zaidi ukigusa */
             box-shadow: 0 0 20px rgba(74, 222, 128, 0.4) !important;
         }
 
@@ -183,6 +180,23 @@
             border: 1px dashed var(--border);
             padding: 20px;
             text-align: center;
+        }
+
+        /* Muonekano wa Footer Mpya */
+        .footer-credit {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 11px;
+            color: #94a3b8;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-credit b {
+            color: var(--primary);
+            font-weight: 600;
         }
     </style>
 </head>
@@ -237,6 +251,10 @@
         </div>
 
         <p id="statusMsg" style="display: none;"></p>
+
+        <div class="footer-credit">
+            designed by <b>zephania kennedy</b> and powered by <b>zepox omni tech</b>
+        </div>
     </div>
 
     <script>
@@ -295,8 +313,6 @@
             reader.readAsDataURL(file);
             reader.onload = async () => {
                 const base64Data = reader.result.split(',')[1];
-
-                // Hapa tunakata sifuri ya mwanzoni kama ipo kabla ya kutuma
                 const formattedPhone = phone.replace(/^0+/, '');
 
                 const payload = {
